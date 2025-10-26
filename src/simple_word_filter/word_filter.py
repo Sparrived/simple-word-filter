@@ -86,14 +86,14 @@ class WordFilter:
         word_list: list[str], 
         sample_words: list[str] = None, 
         max_k: int = 5
-    ) -> "WordFilter":
+    ) -> tuple["WordFilter", dict[str, float]]:
         """快速测试不同匹配器的性能表现，并选出性能最高的匹配器
         Args:
             word_list (list[str]): 要匹配的单词列表
             sample_words (Optional[list[str]]): 用于生成测试文本的样本单词列表，为空则随机从word_list中选择
             max_k (int): 每段测试文本中包含的单词数量上限，默认为5
         Returns:
-            使用最快匹配器的WordMatcher实例
+            使用最快匹配器的WordMatcher实例，以及各匹配器的性能测试结果字典
         """
         import time
         test_text = ''
@@ -112,6 +112,7 @@ class WordFilter:
 
         best_matcher = None
         best_time = float('inf')
+        test_results: dict[str, float] = {}
 
         for matcher in matchers:
             start_time = time.time()
@@ -120,5 +121,6 @@ class WordFilter:
             if elapsed_time < best_time:
                 best_time = elapsed_time
                 best_matcher = matcher
+            test_results[matcher.mode] = elapsed_time
 
-        return best_matcher
+        return best_matcher, test_results
