@@ -34,9 +34,6 @@ Repository = "https://github.com/Sparrived/simple-word-filter"
 Issues = "https://github.com/Sparrived/simple-word-filter/issues"
 Changelog = "https://github.com/Sparrived/simple-word-filter/blob/master/CHANGELOG.md"
 
-[project.scripts]
-simple-word-filter = "simple_word_filter.__main__:main"
-
 [tool.setuptools]
 package-dir = { "" = "src" }
 
