@@ -1,7 +1,7 @@
 import re
 from ..base_matcher import BaseMatcher
 
-@BaseMatcher.decorate_matcher("regex")
+@BaseMatcher.matcher("regex")
 class RegexMatcher(BaseMatcher):
     def __init__(self, word_list: list[str]):
         super().__init__(word_list)

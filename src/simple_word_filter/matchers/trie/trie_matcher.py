@@ -1,7 +1,7 @@
 from .trie import TrieTree
 from ..base_matcher import BaseMatcher
 
-@BaseMatcher.decorate_matcher("trie")
+@BaseMatcher.matcher("trie")
 class TrieMatcher(BaseMatcher):
     def __init__(self, word_list: list[str]):
         super().__init__(word_list)

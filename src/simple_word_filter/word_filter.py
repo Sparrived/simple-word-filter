@@ -34,6 +34,37 @@ class WordFilter:
         return self._mode
     
 
+    # ======== 功能实现 ========
+    def replace(self, text: str, repl_char: str = '*') -> str:
+        """替换文本中所有匹配的单词为指定字符
+
+        Args:
+            text (str): 要处理的文本
+            repl_char (str): 用于替换的字符，默认为 '*'
+
+        Returns:
+            替换后的文本
+        """
+        matches = self.match_all(text)
+        if not matches:
+            return text
+        
+        # 按索引排序匹配项，防止替换时索引混乱
+        matches.sort(key=lambda x: x[1])
+        
+        result = []
+        last_index = 0
+        
+        for word, index in matches:
+            result.append(text[last_index:index])
+            result.append(repl_char * len(word))
+            last_index = index + len(word)
+        
+        result.append(text[last_index:])
+        
+        return ''.join(result)
+
+
     # ======== 代理方法 ========
     def contains(self, text: str) -> bool:
         """检查文本中是否包含匹配的单词"""
@@ -50,7 +81,12 @@ class WordFilter:
 
     # ======== API 方法 ========
     @classmethod
-    def matcher_speed_test(cls, word_list: list[str], sample_words: list[str], max_k: int = 5) -> "WordFilter":
+    def matcher_speed_test(
+        cls, 
+        word_list: list[str], 
+        sample_words: list[str], 
+        max_k: int = 5
+    ) -> "WordFilter":
         """快速测试不同匹配器的性能表现，并选出性能最高的匹配器
         Args:
             word_list (list[str]): 要匹配的单词列表
@@ -84,7 +120,3 @@ class WordFilter:
                 best_matcher = matcher
 
         return best_matcher
-    
-if __name__ == "__main__":
-    print(BaseMatcher._MATCHER_REGISTRY)
-    wf = WordFilter(['测试', '敏感词'], mode='regex')

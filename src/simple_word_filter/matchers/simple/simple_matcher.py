@@ -1,6 +1,6 @@
 from ..base_matcher import BaseMatcher
 
-@BaseMatcher.decorate_matcher("simple")
+@BaseMatcher.matcher("simple")
 class SimpleMatcher(BaseMatcher):
     def __init__(self, word_list: list[str]):
         super().__init__(word_list)

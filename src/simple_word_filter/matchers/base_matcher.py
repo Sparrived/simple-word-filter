@@ -18,8 +18,7 @@ class BaseMatcher:
         Returns:
             如果找到匹配的单词，则返回True；否则返回False
         """
-
-        return False if self.match_first(text) else True
+        return True if self.match_first(text) else False
 
     @abstractmethod
     def match_all(self, text: str) -> list[tuple[str, int]]:
@@ -60,7 +59,7 @@ class BaseMatcher:
         cls._MATCHER_REGISTRY[name] = matcher_class
     
     @classmethod
-    def decorate_matcher(cls, name: str):
+    def matcher(cls, name: str):
         """装饰器方式注册自定义匹配器
 
         Args:
