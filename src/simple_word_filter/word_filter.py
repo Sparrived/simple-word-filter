@@ -84,19 +84,21 @@ class WordFilter:
     def matcher_speed_test(
         cls, 
         word_list: list[str], 
-        sample_words: list[str], 
+        sample_words: list[str] = None, 
         max_k: int = 5
     ) -> "WordFilter":
         """快速测试不同匹配器的性能表现，并选出性能最高的匹配器
         Args:
             word_list (list[str]): 要匹配的单词列表
-            sample_words (list[str]): 用于生成测试文本的样本单词列表
+            sample_words (Optional[list[str]]): 用于生成测试文本的样本单词列表，为空则随机从word_list中选择
             max_k (int): 每段测试文本中包含的单词数量上限，默认为5
         Returns:
             使用最快匹配器的WordMatcher实例
         """
         import time
         test_text = ''
+        if sample_words is None:
+            sample_words = word_list
         k = min(max_k, len(sample_words))
         from random import choices
         for _ in range(1000):

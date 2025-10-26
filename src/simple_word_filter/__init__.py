@@ -16,7 +16,7 @@
     True
 """
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __author__ = "Sparrived"
 __email__ = "sparrived@outlook.com"
 __license__ = "MIT"
